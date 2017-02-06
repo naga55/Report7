@@ -58,28 +58,32 @@ public class MYrobot extends AdvancedRobot
         deltaX = middleX-px+1;
         deltaY = middleY-py;
 
-        if(Math.floor(Math.abs(deltaX))<=10&&Math.floor(Math.abs(deltaY))<=10){ //
+        if(Math.floor(Math.abs(deltaX))<=10&&Math.floor(Math.abs(deltaY))<=10){
+            //deltaXが10以下かつdeltaYが10以下の時の行動
             angle = 0;
             deltaX = 0;
         }
 
-        turnRight(Math.abs(angle)-getHeading());
+        turnRight(Math.abs(angle)-getHeading());  //取得した角度からフィールドの高さを引いた分右に回る
         ahead(deltaX);
     }
 
     public void onBulletMissed(BulletMissedEvent event){
-        turnLeft(90);
-        ahead(100);
+        //このロボットが発射した弾が外れた時の行動
+        turnLeft(90);//左に90回る
+        ahead(100);//100前進
     }
     public void onHitByBullet(BulletHitEvent event){
-        turnLeft(90);
-        ahead(200);
+        //このロボットに弾丸が当たった時の行動
+        turnLeft(90); //左に90回る
+        ahead(200); //200進む
     }
 
     public void onHitRobot(HitRobotEvent event){
-        if (event.getBearing() > -90 && event.getBearing() <= 90)
-            back(100);
-        else
-            ahead(100);
+        //このロボットが他のロボットにぶつかった時の行動
+        if (event.getBearing() > -90 && event.getBearing() <= 90) //もし敵が自身のロボットより、前にいれば
+            back(100); //100バックする
+        else //そうではない場合
+            ahead(100); //100前進
     }
 }
