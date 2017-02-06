@@ -31,38 +31,34 @@ public class MYrobot extends AdvancedRobot
      * onScannedRobot: What to do when you see another robot
      */
     public void onScannedRobot(ScannedRobotEvent e) {
-        // Replace the next line with any behavior you would like
-        fire(3);
+        // ロボットをレーダーで感知した時の行動
+        fire(3); //３で攻撃
         setTurnRightRadians(e.getBearingRadians() + Math.PI/2 - (e.getDistance()>200?Math.PI/8:-Math.PI/8));
+        //砲塔を右にセットする
+
     }
 
-    /**
-     * onHitByBullet: What to do when you're hit by a bullet
-     */
 
-
-    /**
-     * onHitWall: What to do when you hit a wall
-     */
     public void onHitWall(HitWallEvent e) {
-        // Replace the next line with any behavior you would like
-        double middleX = getBattleFieldWidth()/2;
-        double middleY = getBattleFieldWidth()/2;
+        //ロボットが壁に当たった時の行動
+        double middleX = getBattleFieldWidth()/2; //中心のx座標を取得
+        double middleY = getBattleFieldHeight()/2; //中心のy座標を取得
 
-        double px = getX();
-        double py = getY();
+        double px = getX(); //ロボットのx座標を取得し、pxに入れる
+        double py = getY(); //ロボットのy座標を取得し、pyに入れる
 
-        double deltaX = middleX-px;
-        double deltaY = middleY-py;
+        double deltaX = middleX-px; //中心から自身のロボットとのx距離を取得
+        double deltaY = middleY-py; //中心から自身のロボットとのy距離を取得
 
         double angle = 90-Math.floor(Math.toDegrees(Math.atan(deltaY/deltaX)));
+        //ラジアンから角度を取得
 
-        px = getX();
-        py = getY();
+        px = getX(); //ロボットの現在地のx座標を取得
+        py = getY(); //ロボットの現在地のy座標を取得
         deltaX = middleX-px+1;
         deltaY = middleY-py;
 
-        if(Math.floor(Math.abs(deltaX))<=10&&Math.floor(Math.abs(deltaY))<=10){
+        if(Math.floor(Math.abs(deltaX))<=10&&Math.floor(Math.abs(deltaY))<=10){ //
             angle = 0;
             deltaX = 0;
         }
